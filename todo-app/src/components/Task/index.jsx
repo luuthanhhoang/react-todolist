@@ -11,7 +11,7 @@ const Task = (props) => {
 
   const listButton = [{
     component: <CreateIcon />,
-    action: () => updateTask()
+    action: () => updateTask(task)
   },
   {
     component: <DeleteIcon />,
