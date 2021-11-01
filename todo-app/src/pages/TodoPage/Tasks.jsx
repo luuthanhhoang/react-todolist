@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
+import React from 'react';
 import Task from '../../components/Task'
 
 const Tasks = (props) => {
 
-  const { dataTodo, setDataTodo } = props;
+  const { dataTodo, setDataTodo, setTextTask, setIsUpdate, setObjectUpdate } = props;
 
   const deleteTask = (check) => {
     const newData = [];
@@ -17,8 +17,10 @@ const Tasks = (props) => {
     setDataTodo(newData);
   };
 
-  const updateTask = () => {
-
+  const updateTask = (check) => {
+    setTextTask(check.text);
+    setIsUpdate(true);
+    setObjectUpdate(check);
   };
 
   const handleChangeCheckbox = (check) => {
