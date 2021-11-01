@@ -20,23 +20,42 @@ const TodoPage = () => {
   const classes = useStyles();
 
   const [textTask, setTextTask] = React.useState('');
-
-  const [dataTodo, setDataTodo] = useState([
-
-  ]);
+  const [dataTodo, setDataTodo] = useState([]);
+  const [isUpdate, setIsUpdate] = useState(false);
+  const [objectUpdate, setObjectUpdate] = useState({});
 
   const handleAddItem = () => {
-    let newObject = {
-      id: uuidv4(),
-      isChecked: false,
-      text: textTask
-    }
-    setDataTodo([
-      ...dataTodo,
-      newObject
-    ]);
-    setTextTask('');
 
+    if (isUpdate) {
+      let newData = [];
+
+      for (let x of dataTodo) {
+        if (x.id === objectUpdate.id) {
+          newData.push({
+            ...objectUpdate,
+            text: textTask
+          })
+        } else {
+          newData.push(x);
+        }
+      }
+      setTextTask('')
+      setDataTodo(newData)
+
+    } else {
+      let newObject = {
+        id: uuidv4(),
+        isChecked: false,
+        text: textTask
+      }
+      setDataTodo([
+        ...dataTodo,
+        newObject
+      ]);
+      setTextTask('');
+    }
+
+    setIsUpdate(false);
   };
 
   return (
@@ -51,12 +70,14 @@ const TodoPage = () => {
             <TextField value={textTask} onChange={e => setTextTask(e.target.value)} fullWidth label="Add todo" size="small" />
           </Grid>
           <Grid item xs={2}>
-            <Button onClick={handleAddItem} variant="contained" fullWidth>Add</Button>
+            <Button onClick={handleAddItem} variant="contained" fullWidth>{
+              isUpdate ? 'Update' : 'Add'
+            }</Button>
           </Grid>
         </Grid>
 
         <Grid item xs={12}>
-          <Tasks dataTodo={dataTodo} setDataTodo={setDataTodo} />
+          <Tasks dataTodo={dataTodo} setTextTask={setTextTask} setDataTodo={setDataTodo} setIsUpdate={setIsUpdate} setObjectUpdate={setObjectUpdate} />
         </Grid>
       </Grid>
     </Paper>
