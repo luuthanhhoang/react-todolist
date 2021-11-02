@@ -3,18 +3,18 @@ import Task from '../../components/Task'
 
 const Tasks = (props) => {
 
-  const { dataTodo, setDataTodo, setTextTask, setIsUpdate, setObjectUpdate } = props;
+  const { dataTodo, setTextTask, setIsUpdate, setObjectUpdate } = props;
 
   const deleteTask = (check) => {
-    const newData = [];
+    // const newData = [];
 
-    for (let x of dataTodo) {
-      if (x.id !== check.id) {
-        newData.push(x);
-      }
-    }
+    // for (let x of dataTodo) {
+    //   if (x.id !== check.id) {
+    //     newData.push(x);
+    //   }
+    // }
 
-    setDataTodo(newData);
+    // setDataTodo(newData);
   };
 
   const updateTask = (check) => {
@@ -24,21 +24,21 @@ const Tasks = (props) => {
   };
 
   const handleChangeCheckbox = (check) => {
-    const newData = [];
+    // const newData = [];
 
-    for (let x of dataTodo) {
-      if (x.id === check.id) {
-        newData.push({
-          ...x,
-          isChecked: !check.isChecked
-        })
+    // for (let x of dataTodo) {
+    //   if (x.id === check.id) {
+    //     newData.push({
+    //       ...x,
+    //       isChecked: !check.isChecked
+    //     })
 
-      } else {
-        newData.push(x);
-      }
-    }
+    //   } else {
+    //     newData.push(x);
+    //   }
+    // }
 
-    setDataTodo(newData);
+    // setDataTodo(newData);
   };
 
 

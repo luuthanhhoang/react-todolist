@@ -4,6 +4,8 @@ import { makeStyles } from '@mui/styles';
 import { Typography, Button, Grid, TextField } from '@mui/material';
 import Tasks from './Tasks';
 import { v4 as uuidv4 } from 'uuid';
+import { useSelector, useDispatch } from 'react-redux';
+import { addTask, getTask } from '../../actions/taskAction';
 
 const useStyles = makeStyles({
   paper: {
@@ -18,43 +20,40 @@ const useStyles = makeStyles({
 
 const TodoPage = () => {
   const classes = useStyles();
-
+  const dataTodo = useSelector(state => state.taskReducer.dataTodo);
+  const dispatch = useDispatch();
   const [textTask, setTextTask] = React.useState('');
-  const [dataTodo, setDataTodo] = useState([]);
+  // const [dataTodo, setDataTodo] = useState([]);
   const [isUpdate, setIsUpdate] = useState(false);
   const [objectUpdate, setObjectUpdate] = useState({});
 
   const handleAddItem = () => {
 
-    if (isUpdate) {
-      let newData = [];
+    // if (isUpdate) {
+    //   let newData = [];
 
-      for (let x of dataTodo) {
-        if (x.id === objectUpdate.id) {
-          newData.push({
-            ...objectUpdate,
-            text: textTask
-          })
-        } else {
-          newData.push(x);
-        }
-      }
-      setTextTask('')
-      setDataTodo(newData)
+    //   for (let x of dataTodo) {
+    //     if (x.id === objectUpdate.id) {
+    //       newData.push({
+    //         ...objectUpdate,
+    //         text: textTask
+    //       })
+    //     } else {
+    //       newData.push(x);
+    //     }
+    //   }
+    //   setTextTask('')
+    //   setDataTodo(newData)
 
-    } else {
-      let newObject = {
-        id: uuidv4(),
-        isChecked: false,
-        text: textTask
-      }
-      setDataTodo([
-        ...dataTodo,
-        newObject
-      ]);
-      setTextTask('');
+    // } else {
+    let newObject = {
+      id: uuidv4(),
+      isChecked: false,
+      text: textTask
     }
 
+    dispatch(addTask(newObject));
+    dispatch(getTask());
     setIsUpdate(false);
   };
 
@@ -77,7 +76,7 @@ const TodoPage = () => {
         </Grid>
 
         <Grid item xs={12}>
-          <Tasks dataTodo={dataTodo} setTextTask={setTextTask} setDataTodo={setDataTodo} setIsUpdate={setIsUpdate} setObjectUpdate={setObjectUpdate} />
+          <Tasks dataTodo={dataTodo} setTextTask={setTextTask} setIsUpdate={setIsUpdate} setObjectUpdate={setObjectUpdate} />
         </Grid>
       </Grid>
     </Paper>
